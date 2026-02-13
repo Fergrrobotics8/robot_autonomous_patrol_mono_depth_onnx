@@ -1,0 +1,9 @@
+setup.py
+autonomous_patrol/__init__.py
+autonomous_patrol/follow_waypoints_node.py
+autonomous_patrol/record_waypoints_node.py
+autonomous_patrol/visualizer_node.py
+autonomous_patrol.egg-info/PKG-INFO
+autonomous_patrol.egg-info/SOURCES.txt
+autonomous_patrol.egg-info/dependency_links.txt
+autonomous_patrol.egg-info/top_level.txt

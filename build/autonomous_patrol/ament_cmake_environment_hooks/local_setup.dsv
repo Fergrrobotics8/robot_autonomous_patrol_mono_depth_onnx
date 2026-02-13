@@ -1,0 +1,3 @@
+source;share/autonomous_patrol/environment/ament_prefix_path.sh
+source;share/autonomous_patrol/environment/path.sh
+source;share/autonomous_patrol/environment/pythonpath.sh
