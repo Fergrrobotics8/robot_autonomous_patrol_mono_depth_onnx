@@ -74,14 +74,18 @@ source install/setup.bash
 
 ### Recording a Trajectory
 
+**IMPORTANT: Follow the order carefully!**
+
 1. Terminal 1 - Start robot simulator:
 ```bash
 ros2 launch robot_description robot.launch.py
 ```
+   - Gazebo and RViz will open automatically
+   - **IMPORTANT:** Press the PLAY button in Gazebo to start the simulation
 
-2. Terminal 2 - Start waypoint recorder:
+2. Terminal 2 - Start SLAM:
 ```bash
-ros2 launch autonomous_patrol record_waypoints.launch.py
+ros2 run autonomous_patrol slam
 ```
 
 3. Terminal 3 - Teleoperate robot:
@@ -89,24 +93,38 @@ ros2 launch autonomous_patrol record_waypoints.launch.py
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/cmd_vel
 ```
 
-4. Navigate the robot using keyboard (w/x forward/backward, a/d turn)
-5. Press Ctrl+C in Terminal 2 to save waypoints
+4. Terminal 4 - Start waypoint recorder:
+```bash
+ros2 launch autonomous_patrol record_waypoints.launch.py
+```
+
+5. Navigate the robot using keyboard (w/x forward/backward, a/d turn)
+6. Press Ctrl+C in Terminal 4 to save waypoints
 
 Waypoints saved to: `src/nomeer_robot_ros2/src/autonomous_patrol/data/waypoints.yaml`
 
 ### Playing Back Trajectory
 
+**IMPORTANT: Follow the order carefully!**
+
 1. Terminal 1 - Start robot simulator:
 ```bash
 ros2 launch robot_description robot.launch.py
 ```
+   - Gazebo and RViz will open automatically
+   - **IMPORTANT:** Press the PLAY button in Gazebo to start the simulation
 
-2. Terminal 2 - Start waypoint follower:
+2. Terminal 2 - Start SLAM:
+```bash
+ros2 run autonomous_patrol slam
+```
+
+3. Terminal 3 - Start waypoint follower:
 ```bash
 ros2 launch autonomous_patrol follow_waypoints.launch.py
 ```
 
-3. (Optional) Terminal 3 - Visualize in RViz:
+4. (Optional) Terminal 4 - Visualize in RViz:
 ```bash
 ros2 launch autonomous_patrol visualize_waypoints.launch.py
 ```
