@@ -1,4 +1,4 @@
-# Nomeer Robot - Autonomous Navigation with Monocular Depth Vision
+# Fergrrobotics Robot (based on Nomeer robot)- Autonomous Navigation with Monocular Depth Vision
 
 A complete autonomous robotic system built on ROS 2 Humble with two integrated capabilities:
 - Part A: Waypoint-based autonomous navigation with trajectory recording
