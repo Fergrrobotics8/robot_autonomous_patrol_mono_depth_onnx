@@ -1,6 +1,7 @@
-# Fergrrobotics Robot (based on Nomeer robot)- Autonomous Navigation with Monocular Depth Vision
+# Fergrrobotics Robot (based on Nomeer robot) - Autonomous Navigation with Monocular Depth Vision
 
-A complete autonomous robotic system built on ROS 2 Humble with two integrated capabilities:
+A complete autonomous robotic system built on ROS 2 Humble with integrated SLAM and autonomous navigation:
+- SLAM: Real-time simultaneous localization and mapping
 - Part A: Waypoint-based autonomous navigation with trajectory recording
 - Part B: Real-time monocular depth estimation using ONNX-accelerated AI (MiDaS)
 
@@ -181,6 +182,26 @@ ros2 run mono_depth_onnx depth_inference_node.py
 This node subscribes to `/rgb_image` and publishes:
 - `/camera/depth_estimated` - Raw depth map (mono16)
 - `/camera/depth_colored` - Colored depth visualization
+
+## SLAM: Simultaneous Localization and Mapping
+
+Real-time SLAM implementation for autonomous robot mapping and localization:
+
+```bash
+# Launch SLAM node
+ros2 launch autonomous_patrol slam.launch.py
+```
+
+This starts the SLAM system which:
+- Builds a real-time map of the environment
+- Simultaneously localizes the robot within the map
+- Provides accurate odometry for autonomous navigation
+- Saves the map for future navigation sessions
+
+Published topics:
+- `/map` - Generated map
+- `/tf` - Transformation tree (robot pose)
+- `/scan` - Laser/sensor data (if applicable)
 
 ## Integration: Autonomous Navigation + Vision + Safety
 
