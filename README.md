@@ -86,7 +86,9 @@ ros2 launch robot_description robot.launch.py
    - Gazebo and RViz will open automatically
    - **IMPORTANT:** Press the PLAY button in Gazebo to start the simulation
 
-2. Terminal 2 - Teleoperate robot to record waypoints:
+### IF YOU WANT TO RECORD WAYPOINTS
+
+2. Terminal 2 - Teleoperate robot:
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/cmd_vel
 ```
@@ -145,18 +147,16 @@ The depth pipeline publishes:
 - `/depth_metric/avg_frontal_depth` - Average depth in ROI (0-1)
 - `/depth_metric/obstacle_detected` - Boolean flag (1=obstacle, 0=clear)
 
-## Playing Back Trajectory with Obstacle Detection
+## Playing Back Trajectory
 
 **No need to close anything!** Simply:
 
-1. In Terminal 3 (or a new terminal), start the waypoint follower with depth-based obstacle detection:
+1. In Terminal 4 (or a new terminal), start the waypoint follower:
 ```bash
 ros2 launch autonomous_patrol follow_waypoints.launch.py
 ```
 
-2. The robot will automatically follow the saved trajectory with real-time obstacle detection
-3. Watch the visualization in RViz that is already open
-4. If an obstacle is detected (median depth > 0.7), the robot will emergency stop
+2. The robot will automatically follow the saved trajectory. Watch the visualization in RViz that is already open
 
 **Metrics** are automatically saved to: `src/nomeer_robot_ros2/src/autonomous_patrol/results/metrics.json`
 
