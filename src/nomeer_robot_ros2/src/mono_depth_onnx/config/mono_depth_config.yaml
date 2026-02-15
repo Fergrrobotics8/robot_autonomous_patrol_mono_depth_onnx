@@ -24,7 +24,7 @@ depth_metric:
     roi_y_end: 0.7           # 70% from top (avoiding ground/floor)
     outlier_percentile_low: 5     # Remove bottom 5% outliers
     outlier_percentile_high: 95   # Remove top 5% outliers
-    obstacle_threshold: 0.7   # Threshold for obstacle detection (median > this = obstacle DETECTED) - RED detected
+    obstacle_threshold: 0.8   # Threshold for obstacle detection (median > this = obstacle DETECTED) - RED detected
     min_depth_threshold: 0.1
     max_depth_threshold: 0.9
     outlier_filter_type: "median"  # Options: median, percentile, iqr

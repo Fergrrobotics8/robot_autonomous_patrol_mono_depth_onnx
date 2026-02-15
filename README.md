@@ -30,6 +30,18 @@ python3 scripts/download_midas_model.py
 cd ~/ros2_ws
 ```
 
+### Pro Tip: Automatic Setup
+
+Add this line to `~/.bashrc` to avoid sourcing every time you open a new terminal:
+```bash
+echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
+```
+
+**Important:** After modifying YAML configs or parameters, you must:
+1. Run `colcon build` to rebuild packages
+2. Source the setup in your current terminal: `source install/setup.bash` (or close and reopen terminal)
+
+
 ## Setup Instructions
 
 ### Initial Configuration (Once)
@@ -91,7 +103,7 @@ ros2 launch robot_description robot.launch.py
 
 2. Terminal 2 - Teleoperate robot:
 ```bash
-ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -r /cmd_vel:=/cmd_vel
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
 3. Terminal 3 - Start waypoint recorder:

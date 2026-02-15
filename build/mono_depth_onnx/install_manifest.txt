@@ -19,7 +19,6 @@
 /home/ferradar/ros2_ws/install/mono_depth_onnx/share/mono_depth_onnx/launch/full_pipeline.launch.py
 /home/ferradar/ros2_ws/install/mono_depth_onnx/share/mono_depth_onnx/launch/with_autonomy.launch.py
 /home/ferradar/ros2_ws/install/mono_depth_onnx/share/mono_depth_onnx/config/mono_depth_config.yaml
-/home/ferradar/ros2_ws/install/mono_depth_onnx/share/mono_depth_onnx/config/test_config.yaml
 /home/ferradar/ros2_ws/install/mono_depth_onnx/share/mono_depth_onnx/models/midas_v21_small.pt
 /home/ferradar/ros2_ws/install/mono_depth_onnx/share/mono_depth_onnx/models/midas_v21_small.onnx.data
 /home/ferradar/ros2_ws/install/mono_depth_onnx/share/mono_depth_onnx/models/midas_v21_small.onnx
