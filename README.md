@@ -1,4 +1,4 @@
-# Fergr Robot (based on Nomeer robot) - Autonomous Navigation with Monocular Depth Vision
+# Fergrbot (based on Nomeer robot) - Autonomous Navigation with Monocular Depth Vision & SLAM
 
 
 
