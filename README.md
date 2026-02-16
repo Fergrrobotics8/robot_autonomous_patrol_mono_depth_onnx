@@ -115,7 +115,10 @@ colcon build
 source install/setup.bash
 ```
 
-### Step 6: Download AI model
+
+### Step 6: (NOT Necessary) Download AI model (only if you don't have it already in the folder)
+
+> **Note:** If the model file `midas_v21_small.onnx` already exists in `src/nomeer_robot_ros2/src/mono_depth_onnx/models/`, you can skip this step. Run this only if you need to download or convert the model again.
 
 ```bash
 cd src/nomeer_robot_ros2/src/mono_depth_onnx
