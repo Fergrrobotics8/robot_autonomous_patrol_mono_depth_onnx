@@ -152,7 +152,7 @@ source install/setup.bash
 
 ## Part A: Autonomous Waypoint Navigation
 
-### Recording a Trajectory
+### Starting the robot environment (Gazebo + RViz)
 
 **IMPORTANT: Follow the order carefully!**
 
@@ -163,7 +163,7 @@ ros2 launch robot_description robot.launch.py
    - Gazebo and RViz will open automatically
    - **IMPORTANT:** Press the PLAY button in Gazebo to start the simulation
 
-### IF YOU WANT TO RECORD WAYPOINTS
+### Recording Waypoints
 
 2. Terminal 2 - Teleoperate robot:
 ```bash
@@ -175,7 +175,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ros2 launch autonomous_patrol record_waypoints.launch.py
 ```
 
-4. Navigate the robot using keyboard (w/x forward/backward, a/d turn)
+4. Navigate the robot using keyboard in Terminal 2 (i/, forward/backward, u/o turn/advance, j/l turn, m/. backward turns)
 5. Press Ctrl+C in Terminal 3 to save waypoints
 
 Waypoints saved to: `src/nomeer_robot_ros2/src/autonomous_patrol/data/waypoints.yaml`
@@ -189,9 +189,10 @@ gedit src/nomeer_robot_ros2/src/autonomous_patrol/config/autonomous_patrol_confi
 ```
 
 Key parameters under `record_waypoints`:
-- `sampling_frequency: 5.0` - Sampling rate in Hz (5 Hz = one waypoint every 200ms)
-- `min_distance_between_waypoints: 0.1` - Minimum distance in meters (ignores waypoints closer than 0.1m)
 - `sampling_mode: "distance"` - Can be `"distance"` or `"frequency"` for recording strategy
+- `sampling_frequency: 10.0` - Sampling rate in Hz (10 Hz = one waypoint every 100ms; increase for faster robots or higher accuracy)
+- `min_distance_between_waypoints: 0.1` - Minimum distance in meters (ignores waypoints closer than 0.1m)
+
 
 
 After modifying the config, rebuild and re-source:
@@ -257,7 +258,35 @@ ros2 launch autonomous_patrol follow_waypoints.launch.py
 
 **Metrics** are automatically saved to: `src/nomeer_robot_ros2/src/autonomous_patrol/results/metrics.json`
 
+### Waypoint Following Configuration
 
+Edit the trajectory following parameters:
+```bash
+gedit src/nomeer_robot_ros2/src/autonomous_patrol/config/autonomous_patrol_config.yaml
+```
+Speed commands are published in the ros2 topic `/cmd_vel`
+
+Key parameters under `follow_waypoints`:
+- `waypoint_tolerance: 0.05` - Distance tolerance in meters (robot considers waypoint reached at ±5cm)
+- `max_linear_velocity: 0.3` - Maximum forward/backward speed in m/s (controlled for precision)
+- `max_angular_velocity: 0.8` - Maximum turning speed in rad/s (controlled for precision)
+
+Adjust these parameters based on your precision requirements and environment:
+```yaml
+follow_waypoints:
+  ros__parameters:
+    waypoint_tolerance: 0.05           # Increase for less precision, decrease for more
+    max_linear_velocity: 0.3           # Increase for speed, decrease for precision
+    max_angular_velocity: 0.8          # Increase for agility, decrease for stability
+    control_frequency: 20.0            # Higher = more responsive, more CPU usage
+    use_yaw_control: true              # Enable/disable orientation control
+```
+
+After modifying the config, rebuild and re-source:
+```bash
+colcon build
+source install/setup.bash
+```
 
 ## Obstacle Detection Configuration
 
@@ -309,65 +338,49 @@ src/nomeer_robot_ros2/
 - `/depth_metric/mean_depth` - Mean depth (0-1)
 - `/depth_metric/obstacle_detected` - Boolean: obstacle present
 
-## Build Commands
 
-Build all packages:
-```bash
-colcon build --packages-select autonomous_patrol mono_depth_onnx robot_description
-```
-
-Build individual package:
-```bash
-colcon build --packages-select autonomous_patrol
-colcon build --packages-select mono_depth_onnx
-colcon build --packages-select robot_description
-```
-
-Clean build:
-```bash
-colcon clean all
-colcon build --packages-select autonomous_patrol mono_depth_onnx robot_description
-source install/setup.bash
-```
-
-## Verification
-
-```bash
-bash verify_installation.sh
-```
-
-Expected output: 38/38 CHECKS PASSED
-
-## Troubleshooting
-
-| Problem | Solution |
-|---------|----------|
-| "Package not found" | `colcon build && source install/setup.bash` |
-| "numpy: _ARRAY_API error" | `pip3 install 'numpy<2'` |
-| "ONNX model not found" | `cd src/nomeer_robot_ros2/src/mono_depth_onnx && python3 scripts/download_midas_model.py` |
-| "Gazebo won't open" | Ensure `rosdep install --from-paths src --ignore-src -r -y` completed successfully |
-| "Can't see topics" | Ensure `source install/setup.bash` in all terminals |
-| "Permission denied" | `chmod +x src/nomeer_robot_ros2/src/*/scripts/*.py` |
-| "Gazebo/ROS version mismatch" | Use Gazebo Harmonic with `ros_gz_sim` and `ros_gz_bridge`, NOT `ros-humble-gazebo-ros` |
 
 ## Project Structure
 
 ```
 ros2_ws/
-├── README.md              # This file
-├── SETUP_GUIDE.md         # Detailed setup documentation
-├── QUICK_START.md         # Quick reference in Spanish
+├── README.md                          # This file - Main documentation
+├── LICENSE                            # Apache 2.0 license
+├── .gitignore                         # Git ignore file (excludes build/, install/, log/, results/)
 ├── src/
 │   └── nomeer_robot_ros2/
-│       ├── README.md      # Original project readme
+│       ├── README.md                  # Original project documentation
 │       └── src/
-│           ├── autonomous_patrol/    # Part A: Waypoint navigation
-│           ├── mono_depth_onnx/      # Part B: Depth vision
-│           └── robot_description/    # Robot model
-├── build/        # Build artifacts
-├── install/      # Installed packages
-└── log/          # Build logs
+│           ├── autonomous_patrol/
+│           │   ├── config/autonomous_patrol_config.yaml
+│           │   ├── data/              # Generated at runtime (waypoints.yaml)
+│           │   ├── results/           # Generated at runtime (metrics.json)
+│           │   ├── launch/
+│           │   │   ├── record_waypoints.launch.py
+│           │   │   └── follow_waypoints.launch.py
+│           │   ├── mono_depth_onnx/
+│           │   ├── robot_description/
+│           │   │   ├── config/
+│           │   │   ├── launch/robot.launch.py
+│           │   │   ├── models/nomeer_robot/robot.sdf
+│           │   │   ├── worlds/
+│           │   │   └── rviz/
+│           │   └── [Python source files]
+│
+├── build/                             # Generated during build (not in git)
+├── install/                           # Generated during build (not in git)
+└── log/                               # Generated during build (not in git)
 ```
+
+**Key Directories:**
+- `src/` - Source code and configuration files
+- `build/` - Build artifacts (auto-generated, excluded from git)
+- `install/` - Installed packages (auto-generated, excluded from git)
+- `log/` - Build logs (auto-generated, excluded from git)
+
+**Important Generated Files:**
+- `data/waypoints.yaml` - Created when recording waypoints
+- `results/metrics.json` - Created after running autonomous navigation
 
 ## System Requirements
 
@@ -409,17 +422,8 @@ This project has been successfully tested on:
 
 The system works well on native Ubuntu 22.04 installations without the VM constraints.
 
-## Documentation
-
-For more detailed information, see:
-- `src/nomeer_robot_ros2/README.md` - Original project documentation
-
 ## License
 
 See original project documentation.
 
 ---
-
-**Status**: Development - Autonomous Waypoint Navigation and Depth-based Obstacle Detection  
-**Date**: February 16, 2026  
-**ROS Distribution**: Humble (with Gazebo Harmonic)

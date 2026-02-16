@@ -19,6 +19,6 @@ record_waypoints:
   ros__parameters:
     sampling_mode: "distance"
     min_distance_between_waypoints: 0.1
-    sampling_frequency: 5.0
+    sampling_frequency: 10.0
     output_file: "waypoints.yaml"
     data_directory: "data"
