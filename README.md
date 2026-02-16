@@ -7,7 +7,73 @@ A ROS 2 Humble-based autonomous robotic system featuring:
 
 ![Autonomous Robot Demo](assets/depth_mono_onnx.gif)
 
-## Quick Start
+## System Setup from Scratch (Ubuntu)
+
+**Prerequisites: Ubuntu 22.04.5 or similar**
+
+> **Tip:** See [Tested Configurations](#tested-configurations) below for verified setups (VirtualBox specs, GPU notes, etc.) before starting installation.
+
+### 1. System Locale Configuration
+
+Ensure proper locale for ROS 2:
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+```
+
+Verify locale setup:
+```bash
+locale  # Should show en_US.UTF-8 for LANG and LC_CTYPE at minimum
+```
+
+### 2. Add Official ROS 2 Repository
+
+Install prerequisites:
+```bash
+sudo apt install software-properties-common curl -y
+```
+
+Add ROS 2 signing key:
+```bash
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key \
+  -o /usr/share/keyrings/ros-archive-keyring.gpg
+```
+
+Add ROS 2 repository:
+```bash
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+sudo apt update
+```
+
+### 3. Install ROS 2 Humble Desktop
+
+```bash
+sudo apt install ros-humble-desktop -y
+```
+
+This includes ROS 2, RViz, and Gazebo Harmonic (Ignition Gazebo 6.x) with modern simulation support.
+
+**Note on Gazebo**: This project uses **Gazebo Harmonic** (Ignition Gazebo 6), which is the current default in ROS 2 Humble. Do NOT install `ros-humble-gazebo-ros` (it's for the legacy Gazebo 11) or attempt other Gazebo versions. The correct packages (`ros-gz-sim`, `ros-gz-bridge`, `ros-gz-interfaces`) will be installed by `rosdep`.
+
+### 4. Install Development Tools
+
+```bash
+sudo apt install python3-colcon-common-extensions python3-rosdep python3-argcomplete -y
+```
+
+### 5. Initialize rosdep
+
+```bash
+sudo rosdep init
+rosdep update
+```
+
+---
+
+## Quick Start (After System Setup)
 
 ```bash
 mkdir -p ~/ros2_ws/src
@@ -45,20 +111,25 @@ echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
 
 ## Setup Instructions
 
+> **Prerequisites:** ROS 2 Humble must be installed. See [System Setup from Scratch](#system-setup-from-scratch-fresh-ubuntu) if doing a fresh installation.
+
 ### Initial Configuration (Once)
+
+This assumes ROS 2 Humble is already installed.
 
 1. Source ROS 2 Humble:
 ```bash
 source /opt/ros/humble/setup.bash
 ```
 
-2. Install system dependencies:
+2. Install project dependencies:
 ```bash
 sudo apt update
 rosdep install --from-paths src --ignore-src -r -y
 sudo apt install -y ros-humble-teleop-twist-keyboard
-sudo apt install -y ros-humble-gazebo-ros
 ```
+
+Note: `rosdep install` automatically handles all Gazebo dependencies (including `ros-humble-gazebo-dev`, `ros-gz-sim`, `ros-gz-bridge` for Harmonic).
 
 3. Install Python dependencies:
 ```bash
@@ -259,9 +330,10 @@ Expected output: 38/38 CHECKS PASSED
 | "Package not found" | `colcon build && source install/setup.bash` |
 | "numpy: _ARRAY_API error" | `pip3 install 'numpy<2'` |
 | "ONNX model not found" | `cd src/nomeer_robot_ros2/src/mono_depth_onnx && python3 scripts/download_midas_model.py` |
-| "Gazebo won't open" | `sudo apt install -y ros-humble-gazebo-ros` |
+| "Gazebo won't open" | Ensure `rosdep install --from-paths src --ignore-src -r -y` completed successfully |
 | "Can't see topics" | Ensure `source install/setup.bash` in all terminals |
 | "Permission denied" | `chmod +x src/nomeer_robot_ros2/src/*/scripts/*.py` |
+| "Gazebo/ROS version mismatch" | Use Gazebo Harmonic with `ros_gz_sim` and `ros_gz_bridge`, NOT `ros-humble-gazebo-ros` |
 
 ## Project Structure
 
@@ -284,14 +356,43 @@ ros2_ws/
 
 ## System Requirements
 
+**Pre-installation:**
+- Ubuntu 22.04 LTS or similar
+- sudo access
+- Internet connection
+- Locale: en_US.UTF-8 (required for ROS)
+
+**Post-installation:**
 - ROS 2 Humble
 - Python 3.10+
-- Ubuntu 22.04 or similar
 - ONNX Runtime (installed via pip)
 - OpenCV Python
 
 Optional:
 - NVIDIA CUDA for GPU acceleration
+
+## Tested Configurations
+
+### Virtual Machine (VirtualBox)
+
+This project has been successfully tested on:
+
+**VirtualBox 7.0.26 with Ubuntu 22.04.5 amd64**
+- Download: [ubuntu-22.04.5-desktop-amd64.iso](https://releases.ubuntu.com/jammy/ubuntu-22.04.5-desktop-amd64.iso)
+- ROS 2 Humble
+- **Recommended VM Specs:**
+  - RAM: 4 GB (minimum 2 GB, but 4 GB recommended for smooth simulation)
+  - Video Memory (VRAM): 128 MB
+  - CPUs: 6 cores (or as many as your host allows)
+  - Disk: 100 GB (or 50 GB minimum)
+
+**Important GPU Note:** When using VirtualBox:
+- **Disable 3D hardware acceleration** if using AMD GPUs - Gazebo will display a blank window with acceleration enabled on AMD systems
+- NVIDIA GPUs may work with acceleration, but it's safer to disable it if you encounter display issues
+
+### Native Linux
+
+The system works well on native Ubuntu 22.04 installations without the VM constraints.
 
 ## Documentation
 
@@ -305,4 +406,5 @@ See original project documentation.
 ---
 
 **Status**: Development - Autonomous Waypoint Navigation and Depth-based Obstacle Detection  
-**Date**: February 15, 2026
+**Date**: February 16, 2026  
+**ROS Distribution**: Humble (with Gazebo Harmonic)
