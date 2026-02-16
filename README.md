@@ -1,6 +1,7 @@
 # Fergrbot (based on Nomeer robot) - Autonomous Navigation with Monocular Depth Vision & SLAM
 
 
+
 A complete autonomous robotic system built on ROS 2 Humble with integrated SLAM and autonomous navigation. The main parts of this projects are the following:
 - Part A: Waypoint-based autonomous navigation with trajectory recording
 - Part B: Real-time monocular depth estimation using ONNX-accelerated AI (MiDaS)
