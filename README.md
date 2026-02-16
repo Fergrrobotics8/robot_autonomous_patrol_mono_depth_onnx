@@ -1,5 +1,4 @@
-# Fergr Robot (based on Nomeer robot) - Autonomous Navigation with Monocular Depth Vision
-
+# Fergrbot (based on Nomeer robot) - Autonomous Navigation with Monocular Depth Vision & SLAM
 
 
 A complete autonomous robotic system built on ROS 2 Humble with integrated SLAM and autonomous navigation. The main parts of this projects are the following:
