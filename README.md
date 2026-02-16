@@ -75,23 +75,42 @@ rosdep update
 
 ## Quick Start (After System Setup)
 
+### Step 1: Create workspace and navigate
+
 ```bash
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws
+```
 
-cd ~/ros2_ws
+### Step 2: Source ROS 2 environment
+
+```bash
 source /opt/ros/humble/setup.bash
+```
 
-# Initial setup (one time)
+### Step 3: Install system and ROS dependencies
+
+```bash
 sudo apt update
 rosdep install --from-paths src --ignore-src -r -y
-sudo pip3 install 'numpy<2' opencv-python onnxruntime PyYAML scipy torch timm onnx onnxscript
+```
 
-# Build packages
+### Step 4: Install Python dependencies
+
+```bash
+sudo pip3 install 'numpy<2' opencv-python onnxruntime PyYAML scipy torch timm onnx onnxscript
+```
+
+### Step 5: Build all packages
+
+```bash
 colcon build --packages-select autonomous_patrol mono_depth_onnx robot_description
 source install/setup.bash
+```
 
-# Download AI model
+### Step 6: Download AI model
+
+```bash
 cd src/nomeer_robot_ros2/src/mono_depth_onnx
 python3 scripts/download_midas_model.py
 cd ~/ros2_ws
