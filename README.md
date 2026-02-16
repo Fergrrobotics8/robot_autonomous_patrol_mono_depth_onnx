@@ -101,14 +101,22 @@ rosdep install --from-paths src --ignore-src -r -y
 sudo pip3 install 'numpy<2' opencv-python onnxruntime PyYAML scipy torch timm onnx onnxscript
 ```
 
-### Step 5: Build all packages
+### Step 5: Clone the robot repository
+
+```bash
+cd ~
+git clone https://github.com/Fergrrobotics8/ros2_ws.git
+cd ~/ros2_ws
+```
+
+### Step 6: Build all packages
 
 ```bash
 colcon build --packages-select autonomous_patrol mono_depth_onnx robot_description
 source install/setup.bash
 ```
 
-### Step 6: Download AI model
+### Step 7: Download AI model
 
 ```bash
 cd src/nomeer_robot_ros2/src/mono_depth_onnx
@@ -365,7 +373,7 @@ This project has been successfully tested on:
   - RAM: 10 GB
   - Video Memory (VRAM): 128 MB
   - CPUs: 6 cores (or as many as your host allows)
-  - Disk: 100 GB (or 50 GB minimum)
+  - Disk: 100 GB
 
 **Important GPU Note:** When using VirtualBox:
 - **Disable 3D hardware acceleration** if using AMD GPUs - Gazebo will display a blank window with acceleration enabled on AMD systems
