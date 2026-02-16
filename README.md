@@ -234,7 +234,7 @@ The depth pipeline publishes:
 
 ## Playing Back Trajectory
 
-**No need to close anything!** Simply:
+**No need to close anything** Simply:
 
 1. In Terminal 4 (or a new terminal), start the waypoint follower:
 ```bash
@@ -251,7 +251,7 @@ ros2 launch autonomous_patrol follow_waypoints.launch.py
 
 The autonomous navigation system includes real-time obstacle detection using monocular depth estimation:
 - During waypoint following, if frontal depth median falls below the configured threshold, the robot **stops immediately**
-- Obstacle event is logged in metrics.json at
+- Obstacle event is logged along with patrol metrics.json at
 ```
  ros2_ws/src/nomeer_robot_ros2/src/autonomous_patrol/results/metrics.json
  ```
