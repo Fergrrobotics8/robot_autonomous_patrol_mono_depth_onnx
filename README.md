@@ -61,7 +61,7 @@ This includes ROS 2, RViz, and Gazebo Harmonic (Ignition Gazebo 6.x) with modern
 ### 4. Install Development Tools
 
 ```bash
-sudo apt install python3-colcon-common-extensions python3-rosdep python3-argcomplete -y
+sudo apt install python3-colcon-common-extensions python3-rosdep python3-argcomplete python3-pip -y
 ```
 
 ### 5. Initialize rosdep
@@ -251,7 +251,7 @@ ros2 launch autonomous_patrol follow_waypoints.launch.py
 
 The autonomous navigation system includes real-time obstacle detection using monocular depth estimation:
 - During waypoint following, if frontal depth median falls below the configured threshold, the robot **stops immediately**
-- Obstacle event is logged along metrics.json
+- Obstacle event is logged in metrics.json
 - Configure sensitivity in:
 
 ```yaml
