@@ -58,10 +58,11 @@ This includes ROS 2, RViz, and Gazebo Harmonic (Ignition Gazebo 6.x) with modern
 
 **Note on Gazebo**: This project uses **Gazebo Harmonic** (Ignition Gazebo 6), which is the current default in ROS 2 Humble. Do NOT install `ros-humble-gazebo-ros` (it's for the legacy Gazebo 11) or attempt other Gazebo versions. The correct packages (`ros-gz-sim`, `ros-gz-bridge`, `ros-gz-interfaces`) will be installed by `rosdep`.
 
+
 ### 4. Install Development Tools
 
 ```bash
-sudo apt install python3-colcon-common-extensions python3-rosdep python3-argcomplete python3-pip -y
+sudo apt install git python3-colcon-common-extensions python3-rosdep python3-argcomplete python3-pip -y
 ```
 
 ### 5. Initialize rosdep
