@@ -11,6 +11,7 @@ from typing import List
 
 import rclpy
 from rclpy.node import Node
+from ament_index_python.packages import get_package_share_directory, get_package_prefix
 from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Point
 from std_msgs.msg import ColorRGBA
@@ -37,14 +38,15 @@ class VisualizerNode(Node):
         self.reference_frame = self.get_parameter('reference_frame').value
         self.marker_frame = self.reference_frame if self.use_slam else 'odom'
         
-        # Build path to source data directory (portable, no hardcoded usernames)
-        # Assumes project is in ~/ros2_ws/src/nomeer_robot_ros2/src/autonomous_patrol/
-        home_dir = os.path.expanduser("~")
-        self.data_dir = os.path.join(
-            home_dir,
-            "ros2_ws/src/nomeer_robot_ros2/src/autonomous_patrol",
-            data_dir_param
-        )
+        # Build path - try install first (pkg share), then src as fallback
+        install_data_dir = os.path.join(get_package_share_directory('autonomous_patrol'), data_dir_param)
+        if os.path.exists(install_data_dir):
+            self.data_dir = install_data_dir
+        else:
+            # Fallback to src directory for development
+            pkg_prefix = get_package_prefix('autonomous_patrol')
+            workspace_root = os.path.abspath(os.path.join(pkg_prefix, '..', '..'))
+            self.data_dir = os.path.join(workspace_root, 'src', 'nomeer_robot_ros2', 'src', 'autonomous_patrol', data_dir_param)
         
         # File path and modification tracking (for hot-reload)
         self.file_path = os.path.join(self.data_dir, self.waypoints_file)

@@ -14,6 +14,7 @@ from dataclasses import dataclass, asdict
 
 import rclpy
 from rclpy.node import Node
+from ament_index_python.packages import get_package_share_directory, get_package_prefix
 from nav_msgs.msg import Odometry
 from std_msgs.msg import String
 
@@ -80,14 +81,15 @@ class RecordWaypointsNode(Node):
         self.slam_active = False
         self.slam_check_count = 0
         
-        # Build path to source data directory (portable, no hardcoded usernames)
-        # Assumes project is in ~/ros2_ws/src/nomeer_robot_ros2/src/autonomous_patrol/
-        home_dir = os.path.expanduser("~")
-        self.data_dir = os.path.join(
-            home_dir, 
-            "ros2_ws/src/nomeer_robot_ros2/src/autonomous_patrol",
-            data_dir_param
-        )
+        # Build path - try install first (pkg share), then src as fallback
+        install_data_dir = os.path.join(get_package_share_directory('autonomous_patrol'), data_dir_param)
+        if os.path.exists(install_data_dir):
+            self.data_dir = install_data_dir
+        else:
+            # Fallback to src directory for development
+            pkg_prefix = get_package_prefix('autonomous_patrol')
+            workspace_root = os.path.abspath(os.path.join(pkg_prefix, '..', '..'))
+            self.data_dir = os.path.join(workspace_root, 'src', 'nomeer_robot_ros2', 'src', 'autonomous_patrol', data_dir_param)
         
         # Create data directory if it doesn't exist
         if not os.path.exists(self.data_dir):

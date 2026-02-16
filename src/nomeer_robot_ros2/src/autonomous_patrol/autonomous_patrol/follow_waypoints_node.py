@@ -16,6 +16,7 @@ import time
 
 import rclpy
 from rclpy.node import Node
+from ament_index_python.packages import get_package_share_directory, get_package_prefix
 from geometry_msgs.msg import Twist, Point
 from nav_msgs.msg import Odometry
 from std_msgs.msg import String, Int32
@@ -87,12 +88,20 @@ class FollowWaypointsNode(Node):
         self.slam_active = False  # True once map→odom is available
         self.slam_check_count = 0
         
-        # Build paths to source data and results directories (portable, no hardcoded usernames)
-        # Assumes project is in ~/ros2_ws/src/nomeer_robot_ros2/src/autonomous_patrol/
-        home_dir = os.path.expanduser("~")
-        pkg_src_path = os.path.join(home_dir, "ros2_ws/src/nomeer_robot_ros2/src/autonomous_patrol")
-        self.data_dir = os.path.join(pkg_src_path, data_dir_param)
-        self.results_dir = os.path.join(pkg_src_path, results_dir_param)
+        # Build paths - try install first (pkg share), then src as fallback
+        install_data_dir = os.path.join(get_package_share_directory('autonomous_patrol'), data_dir_param)
+        install_results_dir = os.path.join(get_package_share_directory('autonomous_patrol'), results_dir_param)
+        
+        if os.path.exists(install_data_dir):
+            self.data_dir = install_data_dir
+            self.results_dir = install_results_dir
+        else:
+            # Fallback to src directory for development
+            pkg_prefix = get_package_prefix('autonomous_patrol')
+            workspace_root = os.path.abspath(os.path.join(pkg_prefix, '..', '..'))
+            src_pkg_path = os.path.join(workspace_root, 'src', 'nomeer_robot_ros2', 'src', 'autonomous_patrol')
+            self.data_dir = os.path.join(src_pkg_path, data_dir_param)
+            self.results_dir = os.path.join(src_pkg_path, results_dir_param)
         
         # Create results directory
         if not os.path.exists(self.results_dir):
