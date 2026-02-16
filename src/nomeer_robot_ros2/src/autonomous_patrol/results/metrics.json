@@ -1,0 +1,306 @@
+{
+  "execution_summary": {
+    "total_execution_time": 143.31076574325562,
+    "waypoints_completed": 19,
+    "total_waypoints": 56,
+    "success": false,
+    "cancellation_reason": "obstacle",
+    "execution_date": "2026-02-15T14:34:18.493076",
+    "slam_active": true,
+    "reference_frame": "map",
+    "obstacle_stops": 1,
+    "obstacle_detection_active": "depth_metric/obstacle_detected topic"
+  },
+  "error_metrics": {
+    "mean_error_to_waypoint": 0.09366852617465773,
+    "max_error_to_waypoint": 0.09991788173214011,
+    "min_error_to_waypoint": 0.010000000000138037
+  },
+  "timing_metrics": {
+    "mean_time_per_waypoint": 7.347800104241622,
+    "max_time_per_waypoint": 10.737802267074585,
+    "min_time_per_waypoint": 0.0012485980987548828
+  },
+  "per_waypoint_data": [
+    {
+      "waypoint_id": 1,
+      "error": 0.010000000000138037,
+      "time": 0.0012485980987548828
+    },
+    {
+      "waypoint_id": 2,
+      "error": 0.09991788173214011,
+      "time": 7.145110607147217
+    },
+    {
+      "waypoint_id": 3,
+      "error": 0.09707795242993042,
+      "time": 8.152746677398682
+    },
+    {
+      "waypoint_id": 4,
+      "error": 0.09851039269204215,
+      "time": 7.99321436882019
+    },
+    {
+      "waypoint_id": 5,
+      "error": 0.09695614767170478,
+      "time": 9.309917449951172
+    },
+    {
+      "waypoint_id": 6,
+      "error": 0.09952486863022388,
+      "time": 10.737802267074585
+    },
+    {
+      "waypoint_id": 7,
+      "error": 0.09912382073898994,
+      "time": 8.352938175201416
+    },
+    {
+      "waypoint_id": 8,
+      "error": 0.0990835171653504,
+      "time": 7.344147443771362
+    },
+    {
+      "waypoint_id": 9,
+      "error": 0.09866756214800464,
+      "time": 7.155154228210449
+    },
+    {
+      "waypoint_id": 10,
+      "error": 0.0994839507371156,
+      "time": 7.645799875259399
+    },
+    {
+      "waypoint_id": 11,
+      "error": 0.09775029770849407,
+      "time": 6.244931936264038
+    },
+    {
+      "waypoint_id": 12,
+      "error": 0.09980648856075047,
+      "time": 7.89958930015564
+    },
+    {
+      "waypoint_id": 13,
+      "error": 0.09543207225517678,
+      "time": 7.2496256828308105
+    },
+    {
+      "waypoint_id": 14,
+      "error": 0.09773090300274623,
+      "time": 7.547558546066284
+    },
+    {
+      "waypoint_id": 15,
+      "error": 0.09686530540705357,
+      "time": 7.7950074672698975
+    },
+    {
+      "waypoint_id": 16,
+      "error": 0.09934661140720875,
+      "time": 7.546948194503784
+    },
+    {
+      "waypoint_id": 17,
+      "error": 0.09980959776878472,
+      "time": 5.594704866409302
+    },
+    {
+      "waypoint_id": 18,
+      "error": 0.09738047047154084,
+      "time": 6.999194622039795
+    },
+    {
+      "waypoint_id": 19,
+      "error": 0.09723415679110158,
+      "time": 8.892561674118042
+    },
+    {
+      "waypoint_id": 20,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 21,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 22,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 23,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 24,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 25,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 26,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 27,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 28,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 29,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 30,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 31,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 32,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 33,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 34,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 35,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 36,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 37,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 38,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 39,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 40,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 41,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 42,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 43,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 44,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 45,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 46,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 47,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 48,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 49,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 50,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 51,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 52,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 53,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 54,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 55,
+      "error": null,
+      "time": null
+    },
+    {
+      "waypoint_id": 56,
+      "error": null,
+      "time": null
+    }
+  ]
+}

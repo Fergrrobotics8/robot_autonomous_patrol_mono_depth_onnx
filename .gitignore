@@ -1,8 +1,8 @@
-build/
-install/
-log/
-results/
-data/
+/build/
+/install/
+/log/
+/results/
+/data/
 .venv/
 venv_robot/
 *.pyc
