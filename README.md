@@ -254,7 +254,7 @@ The depth pipeline publishes:
 ros2 launch autonomous_patrol follow_waypoints.launch.py
 ```
 
-2. The robot will automatically follow the saved trajectory. Watch the visualization in RViz that is already open
+2. The robot will automatically follow the saved trajectory. Watch the visualization in RViz that is already open (sometimes you might need to click, to hide and show the waypoints, in order to refresh and show the latest ones only)
 
 **Metrics** are automatically saved to: `src/nomeer_robot_ros2/src/autonomous_patrol/results/metrics.json`
 
@@ -426,6 +426,6 @@ The system works well on native Ubuntu 22.04 installations without the VM constr
 
 ## License
 
-See original project documentation.
+Registered under Apache 2.0 License.
 
 ---
